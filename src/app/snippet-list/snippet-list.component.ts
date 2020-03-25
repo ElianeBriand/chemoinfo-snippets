@@ -3,9 +3,12 @@ import {SnippetData, SnippetLoaderService} from '../snippet-loader.service';
 import {Subject} from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import {trigger, transition, animate, style, state} from '@angular/animations';
+import {MatBottomSheet} from '@angular/material/bottom-sheet';
 
 import {ActivatedRoute, Router} from '@angular/router';
 import {FilterPersistenceService} from '../filter-persistence-service.service';
+import {GmxTimeCalcComponent} from '../gmx-time-calc/gmx-time-calc.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -53,6 +56,7 @@ export class SnippetListComponent implements OnInit {
 
 
   public updateFilteredSnippets() {
+    console.log('updateFilteredSnippets called');
     if (! this.localSnips) {
       return [];
     }
@@ -87,13 +91,22 @@ export class SnippetListComponent implements OnInit {
 
   constructor(private sniploader: SnippetLoaderService,
               private route: ActivatedRoute,
-              private fps: FilterPersistenceService) {
+              private router: Router,
+              private fps: FilterPersistenceService,
+              private bottomSheet: MatBottomSheet) {
+    this.route.params.subscribe((params) =>  {
+      if (params.searchstr) {
+        console.log('Route search string = ' + params.searchstr);
+        //this.searchDebounceSubject.next(params.searchstr);
+        this.fps.replaceSearchString(params.searchstr);
+        this.fps.rebroadcast();
+      }
+    });
     sniploader.sniplist.then((snippets: SnippetData[]) => {
       this.showLoader = false;
       this.localSnips = snippets;
       this.updateFilteredSnippets();
     }, error1 => console.log(error1));
-
   }
 
   directUpdateSearch(searchTextValue: string, words: string[], tags: string[]) {
@@ -111,11 +124,14 @@ export class SnippetListComponent implements OnInit {
   ngOnInit(): void {
     this.breakpoint = (window.innerWidth <= 1000) ? 1 : 2;
 
+
+
     this.searchDebounceSubject.pipe(
       debounceTime(200)
     ).subscribe((searchTextValue: string) => {
       this.countLimit = this.initialCountLimit;
       this.fps.replaceSearchString(searchTextValue);
+      this.router.navigate(['sniplist/', searchTextValue]);
     });
 
     this.fps.filterSubject.subscribe((res: [string, string[], string[]]) => {
@@ -123,6 +139,7 @@ export class SnippetListComponent implements OnInit {
       const words = res[1];
       const tags = res[2];
       this.filteredSnippets = [];
+      this.searchFilterText = searchStr;
       this.directUpdateSearch(searchStr, words, tags);
     });
   }
@@ -154,6 +171,10 @@ export class SnippetListComponent implements OnInit {
       console.log('Precondition violation: See more called but everything is already displayed');
     }
     this.fps.rebroadcast();
+  }
+
+  openGmxTimeSheet(): void {
+    this.bottomSheet.open(GmxTimeCalcComponent);
   }
 
 }

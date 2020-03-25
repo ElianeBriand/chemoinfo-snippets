@@ -10,7 +10,10 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent},
   { path: 'yamltool', component: YamlCardViewerComponent},
   { path: 'snippet/:shorthand', component: SnippetComponent },
-  { path: '', component: SnippetListComponent,  pathMatch: 'full' }
+  { path: 'sniplist', component: SnippetListComponent },
+  { path: 'sniplist/:searchstr', component: SnippetListComponent },
+  { path: '', redirectTo: 'sniplist' ,  pathMatch: 'full' },
+  {path: '**', redirectTo: 'sniplist' }
 ];
 
 @NgModule({

@@ -37,4 +37,294 @@
     - conformer
     - minimization
   highlightLang: python
-
+- shorthand: PEOEVSAVector
+  title: Generate the vector PEOE VSA descriptor
+  authors: @ElianeBriand
+  description: |-
+    Generate the value for the vector of the PEOE VSA descriptor (corresponding to bins for partial charge/surface area).
+  preludeCode: |+
+    from rdkit import Chem
+    from rdkit.Chem import Descriptors
+  preludeDetails: []
+  code: |+
+    def get_PEOE_VSA_Vector(mol):
+      return [
+      Descriptors.PEOE_VSA1(mol),
+      Descriptors.PEOE_VSA2(mol),
+      Descriptors.PEOE_VSA3(mol),
+      Descriptors.PEOE_VSA4(mol),
+      Descriptors.PEOE_VSA5(mol),
+      Descriptors.PEOE_VSA6(mol),
+      Descriptors.PEOE_VSA7(mol),
+      Descriptors.PEOE_VSA8(mol),
+      Descriptors.PEOE_VSA9(mol),
+      Descriptors.PEOE_VSA10(mol),
+      Descriptors.PEOE_VSA11(mol),
+      Descriptors.PEOE_VSA12(mol),
+      Descriptors.PEOE_VSA13(mol),
+      Descriptors.PEOE_VSA14(mol)
+      ]
+  codeDetails: []
+  url:
+    - https://www.rdkit.org/docs/GettingStartedInPython.html#list-of-available-descriptors
+  tool:
+    - rdkit
+    - python
+  tags:
+    - PEOE
+    - VSA
+    - descriptor
+  highlightLang: python
+- shorthand: SMRVSAVector
+  title: Generate the vector SMR VSA descriptor
+  authors: @ElianeBriand
+  description: |-
+    Generate the value for the vector of the SMR VSA descriptor (corresponding to bins for MR (Molecular refractivity)/surface area).
+  preludeCode: |+
+    from rdkit import Chem
+    from rdkit.Chem import Descriptors
+  preludeDetails: []
+  code: |+
+    def get_SMR_VSA_Vector(mol):
+        return [
+            Descriptors.SMR_VSA1(mol),
+            Descriptors.SMR_VSA2(mol),
+            Descriptors.SMR_VSA3(mol),
+            Descriptors.SMR_VSA4(mol),
+            Descriptors.SMR_VSA5(mol),
+            Descriptors.SMR_VSA6(mol),
+            Descriptors.SMR_VSA7(mol),
+            Descriptors.SMR_VSA8(mol),
+            Descriptors.SMR_VSA9(mol),
+            Descriptors.SMR_VSA10(mol)
+        ]
+  codeDetails: []
+  url:
+    - https://www.rdkit.org/docs/GettingStartedInPython.html#list-of-available-descriptors
+  tool:
+    - rdkit
+    - python
+  tags:
+    - SMR
+    - VSA
+    - descriptor
+  highlightLang: python
+- shorthand: SlogPVSAVector
+  title: Generate the vector SlogP VSA descriptor
+  authors: @ElianeBriand
+  description: |-
+    Generate the value for the vector of the SlogP VSA descriptor (corresponding to bins for logP/surface area).
+  preludeCode: |+
+    from rdkit import Chem
+    from rdkit.Chem import Descriptors
+  preludeDetails: []
+  code: |+
+    def get_SlogP_VSA_Vector(mol):
+        return [
+            Descriptors.SlogP_VSA1(mol),
+            Descriptors.SlogP_VSA2(mol),
+            Descriptors.SlogP_VSA3(mol),
+            Descriptors.SlogP_VSA4(mol),
+            Descriptors.SlogP_VSA5(mol),
+            Descriptors.SlogP_VSA6(mol),
+            Descriptors.SlogP_VSA7(mol),
+            Descriptors.SlogP_VSA8(mol),
+            Descriptors.SlogP_VSA9(mol),
+            Descriptors.SlogP_VSA10(mol),
+            Descriptors.SlogP_VSA11(mol),
+            Descriptors.SlogP_VSA12(mol)
+        ]
+  codeDetails: []
+  url:
+    - https://www.rdkit.org/docs/GettingStartedInPython.html#list-of-available-descriptors
+  tool:
+    - rdkit
+    - python
+  tags:
+    - SlogP
+    - VSA
+    - descriptor
+  highlightLang: python
+- shorthand: EStateVSAVector
+  title: Generate the vector EState VSA descriptor
+  authors: @ElianeBriand
+  description: |-
+    Generate the value for the vector of the EState VSA descriptor (corresponding to bins for EState indices/surface area).
+    Subtly different from VSA EState descriptor.
+  preludeCode: |+
+    from rdkit import Chem
+    from rdkit.Chem import Descriptors
+  preludeDetails: []
+  code: |+
+    def get_EState_VSA_Vector(mol):
+        return [
+            Descriptors.EState_VSA1(mol),
+            Descriptors.EState_VSA2(mol),
+            Descriptors.EState_VSA3(mol),
+            Descriptors.EState_VSA4(mol),
+            Descriptors.EState_VSA5(mol),
+            Descriptors.EState_VSA6(mol),
+            Descriptors.EState_VSA7(mol),
+            Descriptors.EState_VSA8(mol),
+            Descriptors.EState_VSA9(mol),
+            Descriptors.EState_VSA10(mol),
+            Descriptors.EState_VSA11(mol)
+        ]
+  codeDetails: []
+  url:
+    - https://www.rdkit.org/docs/GettingStartedInPython.html#list-of-available-descriptors
+  tool:
+    - rdkit
+    - python
+  tags:
+    - EState
+    - VSA
+    - descriptor
+  highlightLang: python
+- shorthand: VSAEStateVector
+  title: Generate the vector EState VSA descriptor
+  authors: @ElianeBriand
+  description: |-
+    Generate the value for the vector of the VSA EState descriptor (corresponding to bins for EState indices/surface area). Subtly different from EState VSA descriptor.
+  preludeCode: |+
+    from rdkit import Chem
+    from rdkit.Chem import Descriptors
+  preludeDetails: []
+  code: |+
+    def get_VSA_EState_Vector(mol):
+        return [
+            Descriptors.VSA_EState1(mol),
+            Descriptors.VSA_EState2(mol),
+            Descriptors.VSA_EState3(mol),
+            Descriptors.VSA_EState4(mol),
+            Descriptors.VSA_EState5(mol),
+            Descriptors.VSA_EState6(mol),
+            Descriptors.VSA_EState7(mol),
+            Descriptors.VSA_EState8(mol),
+            Descriptors.VSA_EState9(mol),
+            Descriptors.VSA_EState10(mol)
+        ]
+  codeDetails: []
+  url:
+    - https://www.rdkit.org/docs/GettingStartedInPython.html#list-of-available-descriptors
+  tool:
+    - rdkit
+    - python
+  tags:
+    - EState
+    - VSA
+    - descriptor
+  highlightLang: python
+- shorthand: RDKitMassMorganFP
+  title: Generate Morgan fingerprint (ECFP)
+  authors: @ElianeBriand
+  description: |-
+    Generate Morgan fingerprint for a list of SMILES.
+  preludeCode: |+
+    from rdkit import Chem
+    from rdkit.Chem import AllChem
+  preludeDetails: []
+  code: |+
+    morgan_fp = []
+    radius = 4
+    for smiles in smiles_list:
+        m = Chem.MolFromSmiles(smiles)
+        fp1 = AllChem.GetMorganFingerprintAsBitVect(m,radius)
+        morgan_fp.append(fp1)
+  codeDetails:
+    - ["smiles_list", "Array of string with SMILES"]
+    - ["radius", "Circular fingerprint radius = number of bond traversed while making FP. More or less topological locality."]
+  url:
+    - https://www.rdkit.org/docs/GettingStartedInPython.html#list-of-available-descriptors
+  tool:
+    - rdkit
+    - python
+  tags:
+    - Morgan
+    - ECFP
+    - descriptor
+  highlightLang: python
+- shorthand: RDKitFPDistanceMatrix
+  title: Distance matrix from fingerprints
+  authors: @ElianeBriand
+  description: |-
+    Generate a distance matrix from a list of fingerprint bitvector. NB: this is distance, aka (1 - similarity). This is
+    useful for clustering, among other application.
+  preludeCode: |+
+    from rdkit import DataStructs
+  preludeDetails: []
+  code: |+
+    for i in range(len(morgan_fp)):
+      for j in range(len(morgan_fp)):
+        dist = (1- DataStructs.TanimotoSimilarity(morgan_fp[i],morgan_fp[j]))
+        dist_mat[i,j] = dist
+  codeDetails:
+    - ["morgan_fp", "List of fingerprint bitvector (not necessarily Morgan's). See RDKitMassMorganFP for example."]
+  url:
+    - https://www.rdkit.org/docs/GettingStartedInPython.html#list-of-available-descriptors
+    - https://www.rdkit.org/docs/source/rdkit.DataStructs.cDataStructs.html
+  tool:
+    - rdkit
+    - python
+  tags:
+    - fingerprint
+    - descriptor
+    - distanceMatrix
+  highlightLang: python
+- shorthand: RDKitPaddedAdjacencyMatrix
+  title: Compute a fixed-size adjacency matrix for a molecule
+  authors: @ElianeBriand
+  description: |-
+    Generate a fixed size (NxN) adjacency matrix from a molecule (as numpy matrix). If there is less than N atoms,
+    the remaining columns/rows will be zero. Useful as inputs to machine learning or else, as the dimensions are fixed
+  preludeCode: |+
+    from rdkit import Chem
+    import numpy as np
+  preludeDetails: []
+  code: |+
+    def getFullAdjMat(m, numAtom=40):
+      adjMat = Chem.GetAdjacencyMatrix(m,useBO=True)
+      if len(adjMat[0]) > numAtom:
+        raise RuntimeError
+      padAdjMat = np.zeros((numAtom,numAtom))
+      padAdjMat[:adjMat.shape[0],:adjMat.shape[1]] = adjMat
+      return padAdjMat
+  codeDetails:
+    - [" numAtom", "Maximum size of the molecules to be considered"]
+  url:
+    - https://rdkit.org/docs/source/rdkit.Chem.rdmolops.html
+  tool:
+    - rdkit
+    - python
+  tags:
+    - adjacencyMatrix
+    - descriptor
+  highlightLang: python
+- shorthand: RDKitMolToOpenBabelMol
+  title: Convert RDKit molecule to OpenBabel molecule
+  authors: @ElianeBriand
+  description: |-
+    Going from RDKit to OpenBabel and back can be done using .mol string block.
+  preludeCode: |+
+    from rdkit import Chem
+    import numpy as np
+  preludeDetails: []
+  code: |+
+    # Forward: RDKit -> OpenBabel
+    molblck = Chem.MolToMolBlock(rdkit_mol, confId=0)
+    ob_mol = pybel.readstring("mol", molblck)
+    # And back:
+    molblck_back = ob_mol.write("mol")
+    rdkit_mol_back = Chem.MolFromMolBlock(molblck_back)
+  codeDetails: []
+  url:
+    - https://openbabel.org/docs/dev/UseTheLibrary/Python_Pybel.html
+    - https://www.rdkit.org/docs/source/rdkit.Chem.rdmolfiles.html
+  tool:
+    - rdkit
+    - OpenBabel
+    - PyBel
+    - python
+  tags:
+    - conversion
+  highlightLang: python

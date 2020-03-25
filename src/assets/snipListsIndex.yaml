@@ -1,3 +1,5 @@
 filelist:
   - assets/gmx.yaml
   - assets/rdkit.yaml
+  - assets/docking.yaml
+  - assets/obabel.yaml

@@ -15,13 +15,11 @@
     <a [routerLink]="['/about']" class="nav-link nav-text snp-about" >About</a>
     <clr-dropdown>
       <button class="nav-icon" clrDropdownTrigger aria-label="toggle settings menu">
-        <clr-icon shape="cog"></clr-icon>
+        <clr-icon shape="bars"></clr-icon>
         <clr-icon shape="caret down"></clr-icon>
       </button>
       <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-        <a href="..." clrDropdownItem>About</a>
-        <a href="..." clrDropdownItem>Preferences</a>
-        <a href="..." clrDropdownItem>Log out</a>
+        <button (click)="openGmxTimeSheet()" clrDropdownItem>GMX Time calculator</button>
       </clr-dropdown-menu>
     </clr-dropdown>
   </div>

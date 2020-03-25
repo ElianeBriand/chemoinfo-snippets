@@ -1,0 +1,151 @@
+- shorthand: CheckVinaFinishedSuccessfully
+  title: Check Vina output for sucessful completion
+  authors: @ElianeBriand
+  description: |-
+    Use this regex to check if Vina completed successfully, from its standard output or log file.
+  preludeCode: |+
+    import re
+  preludeDetails: []
+  code: |+
+    re_vinaFinishedOk = re.compile("(mode \|   affinity \| dist from best mode)")
+
+    matches = re_vinaFinishedOk.search(vinaOutput)
+    if matches == None:
+      # Did not finish successfully
+    else:
+      # Did finish successfully
+  codeDetails:
+    - ["vinaOutput", "From stdout or a log file"]
+  url:
+  tool:
+    - vina
+    - python
+  tags:
+    - completionCheck
+    - docking
+  highlightLang: python
+- shorthand: VinaScoreOnly
+  title: Compute score and subcomponents with Vina
+  authors: @ElianeBriand
+  description: |-
+    Command to invoke vina score_only mode which returns the docking scores and its subcomponents (pseudo-Lennard-Jones, hydrophobic, hydrogen). See also the regex to match these subcomponents (search VinaSubcompRegex)
+  preludeCode: ""
+  preludeDetails: []
+  code: vina --score_only --ligand docked_ligand.pdbqt --receptor protein.pdbqt
+  codeDetails: []
+  url:
+  tool:
+    - vina
+  tags:
+    - docking
+  highlightLang: bash
+- shorthand: VinaSubcompRegex
+  title: Regex to extract the subcomponents of Vina score_only output
+  authors: @ElianeBriand
+  description: |-
+    Use this regex to extract the subcomponent scores. See the Vinardo paper in Plos for details on the meaning of these subcomponents.
+  preludeCode: |+
+    import re
+  preludeDetails: []
+  code: |+
+    affinity_re = re.compile("Affinity:\s+([\-0-9e\+\.]+)\s+\(kcal\/mol\)")
+    gauss1_re = re.compile("gauss 1\s+:\s+([\-0-9e\+\.]+)")
+    gauss2_re = re.compile("gauss 2\s+:\s+([\-0-9e\+\.]+)")
+    repulsion_re = re.compile("repulsion\s+:\s+([\-0-9e\+\.]+)")
+    hydrophobic_re = re.compile("hydrophobic\s+:\s+([\-0-9e\+\.]+)")
+    hydrogen_re = re.compile("Hydrogen\s+:\s+([\-0-9e\+\.]+)")
+  codeDetails:
+    - ["affinity_re", "Docking score (with full precision)"]
+    - ["gauss1_re", "Together with gauss2 and repulsion, form a pseudo-Lennard-Jones potential"]
+    - ["repulsion_re", "Quandratic repulsion term (close than VdW radius)"]
+    - ["hydrophobic_re", "Interaction between atoms classified as aliphatic/aromatic carbons"]
+    - ["hydrogen_re", "Hydrogen bonding between atoms classified as acceptor and donor - beware can be surprising due to typing rule"]
+  url:
+    - https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0155183
+  tool:
+    - vina
+    - python
+  tags:
+    - docking
+    - score
+  highlightLang: python
+- shorthand: SminaVinardoSubcompRegex
+  title: Regex to extract the subcomponents of Vinardo score (implemented in smina)
+  authors: @ElianeBriand
+  description: |-
+    Use this regex to extract the subcomponent score. See the Vinardo paper in Plos for details on the meaning of these subcomponents.
+  preludeCode: |+
+    import re
+  preludeDetails: []
+  code: |+
+    affinity_re = re.compile("Affinity:\s+([\+\-\.e0-9]+)")
+    gauss_re = re.compile("([\+\-\.e0-9]+)\s+gauss\(")
+    repulsion_re = re.compile("([\+\-\.e0-9]+)\s+repulsion\(")
+    hydrophobic_re = re.compile("([\+\-\.e0-9]+)\s+hydrophobic\(")
+    non_dir_hbond_re = re.compile("([\+\-\.e0-9]+)\s+non_dir_h_bond\(")
+    num_tors_div_re = re.compile("([\+\-\.e0-9]+)\s+num_tors_div")
+  codeDetails:
+    - ["affinity_re", "Docking score (with full precision)"]
+    - ["gauss_re", "Together with d repulsion, form a pseudo-Lennard-Jones potential"]
+    - ["repulsion_re", "Quandratic repulsion term (close than VdW radius)"]
+    - ["hydrophobic_re", "Interaction between atoms classified as aliphatic/aromatic carbons"]
+    - ["non_dir_hbond_re", "Hydrogen bonding between atoms classified as acceptor and donor - beware can be surprising due to typing rule"]
+    - ["num_tors_div_re", "Num rotatable bond - implicated in entropic contribution part of the score"]
+  url:
+    - https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0155183
+  tool:
+    - smina
+    - vinardo
+    - python
+  tags:
+    - docking
+    - score
+  highlightLang: python
+- shorthand: SminaDKOESSubcompRegex
+  title: Regex to extract the subcomponents of DKOES score (implemented in smina)
+  authors: @ElianeBriand
+  description: |-
+    Use this regex to extract the subcomponent score. See the Smina paper for details on the meaning of these subcomponents.
+  preludeCode: |+
+    import re
+  preludeDetails: []
+  code: |+
+    affinity_re = re.compile("Affinity:\s+([\+\-\.e0-9]+)")
+    vdw_re = re.compile("([\+\-\.e0-9]+)\s+vdw\(")
+    non_dir_hbond_re = re.compile("([\+\-\.e0-9]+)\s+non_dir_h_bond\(")
+    ad4solv_re = re.compile("([\+\-\.e0-9]+)\s+ad4_solvation\(")
+    numtorssqr_re = re.compile("([\+\-\.e0-9]+)\s+num_tors_sqr")
+    constantterm_re = re.compile("([\+\-\.e0-9]+)\s+constant_term")
+  codeDetails: []
+  url:
+    - https://www.semanticscholar.org/paper/Lessons-Learned-in-Empirical-Scoring-with-smina-the-Koes-Baumgartner/b8e3a38b79188040cb45c3ef8b75164bab657f8b#related-papers
+  tool:
+    - smina
+    - DKOES
+    - python
+  tags:
+    - docking
+    - score
+  highlightLang: python
+- shorthand: AD4AffinityScoreRegex
+  title: Regex to extract the affinity score from Autodock 4 log file
+  authors: @ElianeBriand
+  description: |-
+    Extract affinity from an AD4 log file. NB: This matches for every final conformation, starting from the best scoring.
+  preludeCode: |+
+    import re
+  preludeDetails: []
+  code: |+
+    regex= re.compile("USER\s+Estimated Free Energy of Binding    =   ([+\-0-9\.]+)")
+  codeDetails: []
+  url:
+  tool:
+    - Autodock4
+    - AD4
+    - python
+  tags:
+    - docking
+    - score
+  highlightLang: python
+
+

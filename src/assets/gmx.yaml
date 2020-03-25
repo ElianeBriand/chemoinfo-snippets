@@ -20,3 +20,39 @@
     - centering
     - trajectoryPostprocessing
   highlightLang: bash
+- shorthand: GmxDecimateTraj
+  title: Decimate/Drop frames from trajectory
+  authors: @ElianeBriand
+  description: Keep every tenth frame (decimation) from a trajectory.
+  preludeCode: ""
+  preludeDetails: []
+  code: gmx trjconv -dt 10 -f traj.xtc -o output.xtc
+  codeDetails:
+    - [ "10" , "Keep every 10th frame - increase this for less frame" ]
+  url:
+    - http://manual.gromacs.org/documentation/current/onlinehelp/gmx-trjconv.html
+  tool:
+    - gromacs
+  tags:
+    - trjconv
+    - decimate
+  highlightLang: bash
+- shorthand: GmxFitToPDB
+  title: Fit to structure, eliminate PDB artefact
+  authors: @ElianeBriand
+  description: Fit to a structure (usually a .pdb or .tpr after energy minimization) to get a stable trajectory. Eliminate PDB artefacts.
+  preludeCode: ""
+  preludeDetails: []
+  code: gmx trjconv -fit rot+trans  -pdb mol -ur compact  -s ref_struct.pdb -f traj.xtc -o output.xtc
+  codeDetails:
+    - [ "rot+trans" , "This removes CoM motion, basically. Might not be the most useful depending on the system, see documentation." ]
+    - [ "ref_struct.pdb" , "Can also be ref_struct.tpr, typically the starting structure" ]
+  url:
+    - http://manual.gromacs.org/documentation/current/onlinehelp/gmx-trjconv.html
+  tool:
+    - gromacs
+  tags:
+    - trjconv
+    - fit
+    - motionElimination
+  highlightLang: bash

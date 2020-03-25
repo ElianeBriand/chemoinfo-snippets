@@ -21,6 +21,8 @@ import { YamlCardViewerComponent } from './yaml-card-viewer/yaml-card-viewer.com
 import { SnippetCardComponent } from './snippet-card/snippet-card.component';
 import {FilterPersistenceService} from './filter-persistence-service.service';
 import { CodeEditorModule } from '@ngstack/code-editor';
+import { GmxTimeCalcComponent } from './gmx-time-calc/gmx-time-calc.component';
+import {MatBottomSheetRef} from '@angular/material/bottom-sheet';
 
 /**
  * Import specific languages to avoid importing everything
@@ -40,7 +42,8 @@ export function getHighlightLanguages() {
     AboutComponent,
     SnippetComponent,
     YamlCardViewerComponent,
-    SnippetCardComponent
+    SnippetCardComponent,
+    GmxTimeCalcComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,9 @@ export function getHighlightLanguages() {
       }
     },
     FilterPersistenceService
+  ],
+   entryComponents: [
+     GmxTimeCalcComponent
   ],
   bootstrap: [AppComponent]
 })

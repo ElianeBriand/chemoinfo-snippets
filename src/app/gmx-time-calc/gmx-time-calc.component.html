@@ -1,0 +1,38 @@
+<h2>Gromacs time & step number calculator<br>
+  <span class="gmxcalctagline">Laziness knows no bounds...</span></h2>
+
+<h3>Step calculator</h3>
+
+<div class="calc-flex">
+
+<div class="calc-form">
+<form class="calc-elem-form">
+  <p>Simulation time: </p>
+  <mat-form-field class="example-full-width">
+    <mat-label>nanosecond (ns)</mat-label>
+    <input matInput value="100" type="number" [(ngModel)]="timeStepCalc" name="stepDuration" (change)="calcStep()">
+  </mat-form-field>
+
+  <p> with timestep </p>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>femtosecond (fs)</mat-label>
+    <input matInput  value="2" type="number" [(ngModel)]="timestepStepCalc" name="stepTimestep" (change)="calcStep()">
+  </mat-form-field>
+</form>
+</div>
+
+  <div class="calc-res"><h4>Steps</h4>
+    <mat-form-field class="example-full-width">
+      <mat-label>Steps</mat-label>
+      <input matInput  readonly="true" [value]="stepResStepCalc">
+    </mat-form-field>
+    <span class="number-copy-button-span"><button class="btn btn-primary copy-btn-snip" aria-label="Copy number of step to clipboard" (click)="copyMessage(stepResStepCalc.toString());"><clr-icon shape="copy"></clr-icon> Copy step number</button>
+</span>
+<div>
+    <pre><code>{{stepMDPResStepCalc}}</code></pre>
+    <button class="btn btn-primary copy-btn-snip" aria-label="Copy MDP nstep line to clipboard" (click)="copyMessage(stepMDPResStepCalc);"><clr-icon shape="copy"></clr-icon> Copy MDP line</button>
+</div>
+  </div>
+
+</div>

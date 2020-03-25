@@ -20,9 +20,7 @@
 
         <pre class="code-pre" class="snippet-preludecode"  aria-label="prelude code, necessary to setup main snippet code" *ngIf="snippet.preludeCode != ''">
       <code class="hidden-maincode" [highlight]="snippet.preludeCode" [languages]="[snippet.highlightLang]" (highlighted)="onHighlight_main($event, codeBlocksPrelude, snippet.preludeDetails)"></code>
-          <code class="shown-maincode" ><span *ngFor="let block of codeBlocksPrelude; index as i;"><span [innerHTML]="block[0]"></span><clr-signpost><span clrSignpostTrigger [innerHTML]="block[1]" class="code-tooltip"></span><clr-signpost-content [clrPosition]="'top-middle'" *clrIfOpen><span [innerHTML]="block[2]"></span></clr-signpost-content></clr-signpost><span [innerHTML]="block[3]"></span></span></code>
-</pre>
-
+          <code class="shown-maincode" ><span *ngFor="let block of codeBlocksPrelude; index as i;"><span [innerHTML]="block[0]"></span><clr-signpost><span clrSignpostTrigger [innerHTML]="block[1]" class="code-tooltip"></span><clr-signpost-content [clrPosition]="'top-middle'" *clrIfOpen><span [innerHTML]="block[2]"></span></clr-signpost-content></clr-signpost><span [innerHTML]="block[3]"></span></span></code></pre>
         <pre class="code-pre" class="snippet-code"  aria-label="main snippet code" [@codeFlashTrig]="codeFlashing ? 'inverted' : 'normal'">
       <code class="hidden-maincode" [highlight]="snippet.code" [languages]="[snippet.highlightLang]" (highlighted)="onHighlight_main($event, codeBlocksMain, snippet.codeDetails)"></code>
           <code class="shown-maincode" ><span *ngFor="let block of codeBlocksMain; index as i;"><span [innerHTML]="block[0]"></span><clr-signpost><span clrSignpostTrigger [innerHTML]="block[1]" class="code-tooltip"></span><clr-signpost-content [clrPosition]="'top-middle'" *clrIfOpen><span [innerHTML]="block[2]"></span></clr-signpost-content></clr-signpost><span [innerHTML]="block[3]"></span></span></code>

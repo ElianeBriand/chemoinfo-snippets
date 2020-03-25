@@ -39,6 +39,7 @@ export class SnippetCardComponent implements OnInit {
 
   constructor( private snackBar: MatSnackBar,
                private router: Router,
+               private route: ActivatedRoute,
                private fps: FilterPersistenceService,
                private sanitizer: DomSanitizer) { }
 
@@ -112,14 +113,22 @@ export class SnippetCardComponent implements OnInit {
 
   public tagToolClickAction(tagtool: string) {
     if (this.isSingleSnippet) {
-      console.log(' SNIPPET_CARD Navigating to multi view with search str: ' + '[' + tagtool + ']');
-      this.router.navigate(['/']).then((fulfilled: boolean) => {
+      this.router.navigate(['sniplist/', '[' + tagtool + ']']);
+      /*.then((fulfilled: boolean) => {
         this.fps.replaceSearchString('');
         this.fps.appendATags(tagtool);
         this.fps.rebroadcast();
-      });
+      });*/
     } else {
-      this.fps.appendATags(tagtool);
+      if (this.fps.isTagAlreadySet(tagtool)) {
+        this.fps.removeTag(tagtool);
+        this.searchString.replace('[' + tagtool + ']', '');
+        console.log(this.searchString);
+        this.router.navigate(['sniplist/', this.searchString]).then(() => { this.fps.rebroadcast(); });
+      } else {
+        this.fps.appendATags(tagtool);
+        this.router.navigate(['sniplist/', this.searchString]);
+      }
       this.fps.rebroadcast();
     }
   }
@@ -128,16 +137,21 @@ export class SnippetCardComponent implements OnInit {
     if (this.isSingleSnippet) {
       console.log('Precondition violation: permalink should not be clickable in single snippet view');
     } else {
-      console.log('SNIPPET_CARD : Preparing to navigate to single snippet');
       this.fps.replaceSearchString('');
       this.router.navigate(['snippet/', this.snippet.shorthand ]);
     }
     this.fps.rebroadcast();
   }
 
-  onHighlight_main(e: HighlightResult, codeBlocks: [SafeHtml, SafeHtml, SafeHtml, SafeHtml][], codeDetails: [string, string] | string[] | undefined) {
+  escapeRegExp(s: string) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+  }
+
+  onHighlight_main(e: HighlightResult,
+                   codeBlocks: [SafeHtml, SafeHtml, SafeHtml, SafeHtml][],
+                   codeDetails: [string, string] | string[] | undefined) {
     let remainingCode: string = e.value;
-    if (this.snippet.codeDetails === [] || !this.snippet.codeDetails || !this.snippet.codeDetails.length) {
+    if (codeDetails === [] || !codeDetails || !codeDetails.length) {
       codeBlocks.push([this.sanitizer.bypassSecurityTrustHtml(remainingCode),
         this.sanitizer.bypassSecurityTrustHtml(''),
         this.sanitizer.bypassSecurityTrustHtml(''),
@@ -148,8 +162,16 @@ export class SnippetCardComponent implements OnInit {
     for ( const tooltipBlock of codeDetails) {
       const pattern = tooltipBlock[0];
       const tooltipText = tooltipBlock[1];
-      const regex = new RegExp('(' + pattern + ')', '');
+      const regex = new RegExp('(' + this.escapeRegExp(pattern) + ')', '');
       const found = remainingCode.match(regex);
+      if (!found) {
+        console.log('Problem with pattern: ' + pattern + ', escaped = ' + this.escapeRegExp(pattern));
+        i++;
+        if (i !== numberTooltip) {
+          break;
+        }
+        continue;
+      }
       const before = remainingCode.substr(0, found.index);
       const matchedPattern = remainingCode.substr(found.index, pattern.length);
       const after = remainingCode.substr(found.index + pattern.length);

@@ -1,0 +1,35 @@
+- shorthand: OpenBabelSpectrophore
+  title: Compute Spectrophore descriptors
+  authors: @ElianeBriand
+  description: |-
+    Generate a Spectrophore from a molecule. With explicit parametrization. See the linked paper and documentation for details on the parameters
+  preludeCode: |+
+    import pybel
+    import openbabel as ob
+    smiles_str = "CCOCCO"
+  preludeDetails:
+    - ["openbabel", "As of early 2020: easiest install is conda install -c conda-forge openbabel"]
+  code: |+
+    sm = pybel.ob.OBSpectrophore()
+    sm.SetResolution(3.0)
+    sm.SetAccuracy(pybel.ob.OBSpectrophore.AngStepSize10)
+    sm.SetStereo(pybel.ob.OBSpectrophore.AllStereoSpecificProbes)
+    sm.SetNormalization(pybel.ob.OBSpectrophore.NoNormalization)
+
+    mol = pybel.readstring("smi", smiles_str)
+    spectrophore = sm.GetSpectrophore(mol.OBMol)
+  codeDetails:
+    - ["smiles_str", "Any SMILES"]
+  url:
+    - https://openbabel.org/docs/dev/Fingerprints/spectrophore.html
+    - https://jcheminf.biomedcentral.com/articles/10.1186/s13321-018-0268-9
+  tool:
+    - OpenBabel
+    - PyBel
+    - python
+  tags:
+    - fingerprint
+    - descriptor
+    - distanceMatrix
+  highlightLang: python
+

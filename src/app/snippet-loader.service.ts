@@ -99,6 +99,14 @@ export class SnippetLoaderService {
 
   }
 
+  shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
   private fetchSniplist(resolve: any, reject: any) {
     if (!this.started && !this.finished) {
       console.log('Initiating fetch');
@@ -120,7 +128,8 @@ export class SnippetLoaderService {
                 // All file have been loaded or have error out
                 // We can resolve:
                 this.finished = true;
-                this.internalSniplist.sort((elem1, elem2) => { return elem1.snipID - elem2.snipID; } )
+                this.internalSniplist.sort((elem1, elem2) => elem1.snipID - elem2.snipID )
+                this.internalSniplist = this.shuffle(this.internalSniplist);
                 resolve(this.internalSniplist);
               }
             }, error2 => { console.log(error2); this.numError++; });

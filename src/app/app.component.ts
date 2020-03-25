@@ -11,6 +11,8 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 export class AppComponent {
   title = 'Chemoinformatics Snippets';
 
+
+
   constructor(private router: Router, private route: ActivatedRoute)  {
 
   }
