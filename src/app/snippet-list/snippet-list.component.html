@@ -1,0 +1,51 @@
+<header class="header-6">
+  <div class="branding">
+    <a [routerLink]="['/']" class="nav-link homelink" (click)="clearSearch()" >
+      <img src="assets/logo.png" class="cs-logo">
+      <span class="title">Chemoinformatics Snippets</span>
+    </a>
+  </div>
+  <form class="search">
+    <label for="search_input">
+      <input aria-label="snippet search"  id="search_input" #filterSearch name="search_input_box" type="text" placeholder="Search for snippets..." (keyup)="onKeyUpSearch($event.target.value)"  [(ngModel)]="searchFilterText" #ctrl="ngModel">
+    </label>
+  </form>
+
+  <div class="header-actions">
+    <a [routerLink]="['/about']" class="nav-link nav-text snp-about" >About</a>
+    <clr-dropdown>
+      <button class="nav-icon" clrDropdownTrigger aria-label="toggle settings menu">
+        <clr-icon shape="cog"></clr-icon>
+        <clr-icon shape="caret down"></clr-icon>
+      </button>
+      <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+        <a href="..." clrDropdownItem>About</a>
+        <a href="..." clrDropdownItem>Preferences</a>
+        <a href="..." clrDropdownItem>Log out</a>
+      </clr-dropdown-menu>
+    </clr-dropdown>
+  </div>
+</header>
+<div class="num-search-res" *ngIf="isSearchActive" [@slideInOut]>
+  {{ numSearchRes }} matching snippets ({{ displayedSearchRes }} shown)
+</div>
+
+<span class="spinner" *ngIf="showLoader">
+    Loading...
+</span>
+
+<ngx-masonry>
+
+
+<div ngxMasonryItem class="masonry-item" *ngFor="let snippet of filteredSnippets" class="snippet-div">
+  <app-snippet-card [snippet]="snippet" [isSingleSnippet]="false" ></app-snippet-card>
+</div>
+
+</ngx-masonry>
+
+<div class="showmore" *ngIf="(displayedSearchRes < numSearchRes) && !showLoader">
+  {{displayedSearchRes}} displayed of {{numSearchRes}} <span class="dashspacer">&mdash;</span> <a (click)="seeMore()"><button class="btn btn-outline" tabIndex="-1">See more</button></a>
+</div>
+<div class="allshown" *ngIf="(displayedSearchRes >= numSearchRes) && !showLoader">
+  All {{displayedSearchRes}} results are displayed.
+</div>

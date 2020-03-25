@@ -1,0 +1,60 @@
+<mat-card>
+  <div class="top-of-snip-card">
+    <div class="title-subtitle-snip">
+      <span class="snippet-shorthand" aria-label="shorthand for snippet">{{ snippet.shorthand }}</span>
+      <mat-card-title class="snip-title" aria-label="title for snippet">{{ snippet.title }}</mat-card-title>
+    </div>
+    <div class="top-button">
+      <button class="btn btn-primary copy-btn-snip" aria-label="Copy snippet main code to clipboard" (click)="copyMessage(snippet.code);makeCodeFlash();"><clr-icon shape="copy"></clr-icon> Copy</button>
+    </div>
+  </div>
+  <div class="content-card-div">
+    <mat-card-content>
+
+
+      <div class="snippet-descr">
+        {{ snippet.description }}
+      </div>
+
+      <div class="prelude-and-code-flex">
+
+        <pre class="code-pre" class="snippet-preludecode"  aria-label="prelude code, necessary to setup main snippet code" *ngIf="snippet.preludeCode != ''">
+      <code class="hidden-maincode" [highlight]="snippet.preludeCode" [languages]="[snippet.highlightLang]" (highlighted)="onHighlight_main($event, codeBlocksPrelude, snippet.preludeDetails)"></code>
+          <code class="shown-maincode" ><span *ngFor="let block of codeBlocksPrelude; index as i;"><span [innerHTML]="block[0]"></span><clr-signpost><span clrSignpostTrigger [innerHTML]="block[1]" class="code-tooltip"></span><clr-signpost-content [clrPosition]="'top-middle'" *clrIfOpen><span [innerHTML]="block[2]"></span></clr-signpost-content></clr-signpost><span [innerHTML]="block[3]"></span></span></code>
+</pre>
+
+        <pre class="code-pre" class="snippet-code"  aria-label="main snippet code" [@codeFlashTrig]="codeFlashing ? 'inverted' : 'normal'">
+      <code class="hidden-maincode" [highlight]="snippet.code" [languages]="[snippet.highlightLang]" (highlighted)="onHighlight_main($event, codeBlocksMain, snippet.codeDetails)"></code>
+          <code class="shown-maincode" ><span *ngFor="let block of codeBlocksMain; index as i;"><span [innerHTML]="block[0]"></span><clr-signpost><span clrSignpostTrigger [innerHTML]="block[1]" class="code-tooltip"></span><clr-signpost-content [clrPosition]="'top-middle'" *clrIfOpen><span [innerHTML]="block[2]"></span></clr-signpost-content></clr-signpost><span [innerHTML]="block[3]"></span></span></code>
+</pre>
+
+      </div>
+
+
+
+
+      <ul class="list">
+        <li *ngFor="let one_url of snippet.url" class="snippet-url-div" aria-label="url for references"><a target="_blank"  href="{{one_url}}" class="snippet-url-link">{{one_url}}</a></li>
+      </ul>
+
+
+      <div class="snippet-bottom-action-div">
+        <div class="bottom-permalink" *ngIf="!isSingleSnippet">
+          <a (click)="goPermalink()" aria-label="go to permanent link" class="snippet-url-link"><button class="btn btn-outline" tabIndex="-1">Permalink</button></a>
+        </div>
+        <div class="bottom-tags">
+          <mat-chip-list class="snippet-tag-container" aria-label="tags and tools that apply to snippet">
+            <mat-chip *ngFor="let one_tool of snippet.tool; index as i;" class="snippet-tool-chip" [style.background]="shouldHighlightTool[i] ? 'yellow' : null" [style.color]="shouldHighlightTool[i]? 'black' : null" (click)="tagToolClickAction(one_tool)">
+              {{one_tool}}
+            </mat-chip>
+            <mat-chip *ngFor="let one_tag of snippet.tags; index as i;" class="snippet-tag-chip"  [style.background]="shouldHighlightTag[i] ? 'yellow' : null" (click)="tagToolClickAction(one_tag)">
+              {{one_tag}}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+
+      </div>
+
+    </mat-card-content>
+  </div>
+</mat-card>

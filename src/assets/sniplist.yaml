@@ -1,0 +1,62 @@
+- snipID: 1
+  shorthand: GmxCenterTraj
+  title: Centering trajectory with Gromacs
+  authors: EB
+  description: Center a trajectory on an atom group
+  preludeCode: ""
+  preludeDetails: []
+  code: gmx trjconv -pbc mol -ur compact -center -f traj.xtc -s topol.tpr -n
+    index.ndx -o output.xtc
+  codeDetails:
+    - "traj.xtc" : "Input trajectory"
+    - "topol.tpr" : "TPR file used for mdrun"
+    - "-n index.ndx" : "Optional index file for non-standard centering"
+    - "output.xtc" : "Output file for trajectory"
+  url:
+    - http://manual.gromacs.org/documentation/current/onlinehelp/gmx-trjconv.html
+  tool:
+    - gromacs
+  tags:
+    - trjconv
+    - centering
+    - trajectoryPostprocessing
+  highlightLang: bash
+- snipID: 2
+  shorthand: RdkitGenConfMMFFMinimize
+  title: Generate a conformer and minimize with MMFF, using RDKit
+  authors: EB
+  description: |-
+    Generate a conformer of a RDKit molecule, then minimize it with
+    the MMFF94 forcefield until convergence. NB: Might need to try/except for
+    robustness.
+  preludeCode: |+
+    from rdkit import Chem
+    mol = Chem.MolFromSmiles("CCOCCO")
+  preludeDetails: []
+  code: |+
+    AllChem.EmbedMolecule(mol,
+                        maxAttempts=200,
+                        randomSeed=100,
+                        useBasicKnowledge=True,
+                        enforceChirality=True,
+                        useRandomCoords=False,
+                        clearConfs=1)
+    res = AllChem.MMFFOptimizeMolecule(mol,
+                                    mmffVariant="MMFF94",
+                                    maxIters=500)
+    if res == 1:
+        print("Need more iteration to converge !")
+  codeDetails:
+    - "useBasicKnowledge=True" : "For complex molecules/macrocycles, set to False, and useRandomCoords to True"
+    - "maxIters=500" : "500 to 2000 iters ought to be enough for most molecules"
+  url:
+    - https://www.rdkit.org/docs/source/rdkit.Chem.rdDistGeom.html
+    - https://www.rdkit.org/docs/source/rdkit.Chem.rdForceFieldHelpers.html
+  tool:
+    - rdkit
+    - python
+  tags:
+    - MMFF
+    - conformer
+    - minimization
+  highlightLang: python

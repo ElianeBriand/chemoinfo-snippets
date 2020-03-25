@@ -1,0 +1,33 @@
+<header class="header-6">
+  <div class="branding">
+    <a [routerLink]="['/']" class="nav-link">
+      <img src="assets/logo.png" class="cs-logo">
+      <span class="title">Chemoinformatics Snippets</span>
+    </a>
+  </div>
+  <div class="header-nav">
+    <span class="nav-link"><a [routerLink]="['/']" tabindex="0"><clr-icon shape="undo" class="backicon"></clr-icon></a></span>
+  </div>
+  <div class="header-actions">
+    <a [routerLink]="['/yamltool']" class="nav-link nav-text active" >YAML Previewer</a>
+    <a [routerLink]="['/about']" class="nav-link nav-text" >About</a>
+  </div>
+</header>
+
+
+<div class="topcontainer">
+  <div class="card-preview">
+    <app-snippet-card [snippet]="snippet" [isSingleSnippet]="true" ></app-snippet-card>
+  </div>
+
+  <div class="yaml-edit">
+    <ngs-code-editor
+      [theme]="theme"
+      language="yaml"
+      [(codeModel)]="model"
+      [options]="options"
+      (valueChanged)="onCodeChanged($event)"></ngs-code-editor>
+
+  </div>
+
+</div>

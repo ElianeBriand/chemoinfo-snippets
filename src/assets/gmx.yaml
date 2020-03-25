@@ -1,0 +1,22 @@
+- shorthand: GmxCenterTraj
+  title: Centering trajectory with Gromacs
+  authors: @ElianeBriand
+  description: Center a trajectory on an atom group. Eliminate PBC artifacts.
+  preludeCode: ""
+  preludeDetails: []
+  code: gmx trjconv -pbc mol -ur compact -center -f traj.xtc -s topol.tpr -n
+    index.ndx -o output.xtc
+  codeDetails:
+    - [ "traj.xtc" , "Input trajectory" ]
+    - [ "topol.tpr" , "TPR file used for mdrun" ]
+    - [ "-n index.ndx" , "Optional index file for non-standard centering" ]
+    - [ "output.xtc" , "Output file for trajectory" ]
+  url:
+    - http://manual.gromacs.org/documentation/current/onlinehelp/gmx-trjconv.html
+  tool:
+    - gromacs
+  tags:
+    - trjconv
+    - centering
+    - trajectoryPostprocessing
+  highlightLang: bash

@@ -1,0 +1,40 @@
+<header class="header-6">
+  <div class="branding">
+    <a [routerLink]="['/']" class="nav-link">
+      <img src="assets/logo.png" class="cs-logo">
+      <span class="title">Chemoinformatics Snippets</span>
+    </a>
+  </div>
+  <div class="header-nav">
+    <span class="nav-link"><a [routerLink]="['/']" tabindex="0"><clr-icon shape="undo" class="backicon"></clr-icon></a></span>
+  </div>
+  <div class="header-actions">
+    <a [routerLink]="['/about']" class="nav-link nav-text active" >About</a>
+  </div>
+</header>
+
+<div class="about-container">
+
+<p>
+  A small website to gather useful snippets of chemoinformatics code.
+</p>
+  <h2>Licensing of the snippets</h2>
+
+  <div class="licence-explainer">
+  <div class="badge-block"><img src="assets/cc0badge.png"></div>
+    <div class="text-block"><p>To the extent possible under law, the person who associated CC0 with each snippet has waived all copyright and related or neighboring rights to the snippet.</p></div>
+  </div>
+
+  <h2>Contributing</h2>
+<p>
+  Source code (including the snippets) on <a href="https://github.com/ElianeBriand/chemoinfo-snippets">GitHub</a>.
+</p>
+<p>
+  Contribution welcome both in content and js/html code. You can submit a new snippet either by
+  <a href="https://github.com/ElianeBriand/chemoinfo-snippets/issues/new/choose">opening a snippet issue</a> or making a pull request.
+  As the snippet lists are stored in standard YAML, it is relatively easy to contribute.
+</p>
+  <p>
+    You can use the following tool to preview the result for a given YAML-formatted snippet: <a [routerLink]="['/yamltool']" >YAML previewer</a>
+  </p>
+</div>

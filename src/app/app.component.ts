@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { filter} from 'rxjs/operators';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'chemoinf-xyz';
+  title = 'Chemoinformatics Snippets';
+
+  constructor(private router: Router, private route: ActivatedRoute)  {
+
+  }
+
 }

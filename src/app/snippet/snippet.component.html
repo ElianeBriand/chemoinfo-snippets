@@ -1,0 +1,21 @@
+<header class="header-6">
+  <div class="branding">
+    <a [routerLink]="['/']" class="nav-link" tabindex="0">
+      <img src="assets/logo.png" class="cs-logo">
+      <span class="title">Chemoinformatics Snippets</span>
+    </a>
+  </div>
+  <div class="header-nav">
+    <span class="nav-link"><a [routerLink]="['/']" tabindex="0"><clr-icon shape="undo" class="backicon"></clr-icon></a></span>
+    <span class="active nav-link"><span class="nav-text">{{ snippet.shorthand }}</span></span>
+  </div>
+
+  <div class="header-actions">
+    <a [routerLink]="['/about']" class="nav-link nav-text" >About</a>
+  </div>
+</header>
+
+<div *ngIf="snippet" class="snippet-container">
+  <app-snippet-card [snippet]="snippet" [isSingleSnippet]="true" ></app-snippet-card>
+
+</div>

@@ -1,0 +1,40 @@
+- shorthand: RdkitGenConfMMFFMinimize
+  title: Generate a conformer and minimize with MMFF, using RDKit
+  authors: @ElianeBriand
+  description: |-
+    Generate a conformer of a RDKit molecule, then minimize it with
+    the MMFF94 forcefield until convergence. NB: Might need to try/except for
+    robustness.
+  preludeCode: |+
+    from rdkit import Chem
+    from rdkit.Chem import AllChem
+    mol = Chem.MolFromSmiles("CCOCCO")
+  preludeDetails: []
+  code: |+
+    AllChem.EmbedMolecule(mol,
+                        maxAttempts=200,
+                        randomSeed=100,
+                        useBasicKnowledge=True,
+                        enforceChirality=True,
+                        useRandomCoords=False,
+                        clearConfs=1)
+    res = AllChem.MMFFOptimizeMolecule(mol,
+                                    mmffVariant="MMFF94",
+                                    maxIters=500)
+    if res == 1:
+        print("Need more iteration to converge !")
+  codeDetails:
+    - ["useBasicKnowledge", "For complex molecules/macrocycles, set to False, and useRandomCoords to True"]
+    - ["maxIters", "500 to 2000 iters ought to be enough for most molecules"]
+  url:
+    - https://www.rdkit.org/docs/source/rdkit.Chem.rdDistGeom.html
+    - https://www.rdkit.org/docs/source/rdkit.Chem.rdForceFieldHelpers.html
+  tool:
+    - rdkit
+    - python
+  tags:
+    - MMFF
+    - conformer
+    - minimization
+  highlightLang: python
+
