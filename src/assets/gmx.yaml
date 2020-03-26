@@ -38,9 +38,9 @@
     - decimate
   highlightLang: bash
 - shorthand: GmxFitToPDB
-  title: Fit to structure, eliminate PDB artefact
+  title: Fit to structure, eliminate PBC artefacts
   authors: @ElianeBriand
-  description: Fit to a structure (usually a .pdb or .tpr after energy minimization) to get a stable trajectory. Eliminate PDB artefacts.
+  description: Fit to a structure (usually a .pdb or .tpr after energy minimization) to get a stable trajectory. Eliminate PBC artefacts.
   preludeCode: ""
   preludeDetails: []
   code: gmx trjconv -fit rot+trans  -pdb mol -ur compact  -s ref_struct.pdb -f traj.xtc -o output.xtc

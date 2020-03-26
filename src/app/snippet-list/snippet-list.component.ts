@@ -125,13 +125,15 @@ export class SnippetListComponent implements OnInit {
     this.breakpoint = (window.innerWidth <= 1000) ? 1 : 2;
 
 
-
+    // pipe(
+    //       debounceTime(50)
+    //     )
     this.searchDebounceSubject.pipe(
-      debounceTime(200)
+      debounceTime(800)
     ).subscribe((searchTextValue: string) => {
       this.countLimit = this.initialCountLimit;
       this.fps.replaceSearchString(searchTextValue);
-      this.router.navigate(['sniplist/', searchTextValue]);
+      this.router.navigate(['sniplist/', searchTextValue], { skipLocationChange: false });
     });
 
     this.fps.filterSubject.subscribe((res: [string, string[], string[]]) => {
