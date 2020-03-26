@@ -11,7 +11,7 @@ Snippets under CC0 or public domain, website code under MIT licence
 Contribution welcome both in content and js/html code. 
 
 You can submit a new snippet either by opening a snippet issue or making a pull request.
-As the snippet lists are stored in standard YAML, it is relatively easy to contribute.
+As the snippet lists are stored in standard YAML, it is relatively easy to contribute. The snippet files are in src/assets/*.yaml
   
 There is a tool available to preview how a given YAML snippet will look and behave: http://chemoinfo-snippets.xyz/#/yamltool
  
