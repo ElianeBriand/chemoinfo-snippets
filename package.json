@@ -30,7 +30,7 @@
     "@types/prismjs": "^1.16.0",
     "ngx-highlightjs": "^4.1.0-beta",
     "ngx-masonry": "^1.1.4",
-    "prismjs": "^1.19.0",
+    "prismjs": "^1.21.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "yaml": "^1.8.3",
