@@ -97,7 +97,7 @@ export class SnippetListComponent implements OnInit {
     this.route.params.subscribe((params) =>  {
       if (params.searchstr) {
         console.log('Route search string = ' + params.searchstr);
-        //this.searchDebounceSubject.next(params.searchstr);
+        // this.searchDebounceSubject.next(params.searchstr);
         this.fps.replaceSearchString(params.searchstr);
         this.fps.rebroadcast();
       }
